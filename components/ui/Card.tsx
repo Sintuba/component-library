@@ -6,7 +6,7 @@ import Image from "next/image"
 // Types
 // ============================================================
 
-export type CardVariant     = "default" | "elevated" | "ghost"
+export type CardVariant     = "default" | "bordered" | "elevated" | "ghost"
 export type CardAspectRatio = "16/9" | "4/3" | "1/1" | "3/4"
 
 export interface CardProps {
@@ -44,7 +44,8 @@ export interface CardFooterProps {
 // ============================================================
 
 const VARIANT_CLASS: Record<CardVariant, string> = {
-  default:  "bg-white border border-gray-200",
+  default:  "bg-white",
+  bordered: "bg-white border border-gray-200",
   elevated: "bg-white shadow-md shadow-black/5",
   ghost:    "bg-gray-50",
 }

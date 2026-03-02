@@ -5,6 +5,7 @@
 // ============================================================
 
 import { createElement } from "react"
+import { cn } from "@/lib/utils"
 
 // ============================================================
 // Types
@@ -21,6 +22,15 @@ interface BaseTextProps {
   align?:     TextAlign
   className?: string
   children:   React.ReactNode
+}
+
+export interface TypographyProps extends BaseTextProps {
+  /** HTMLタグ (h1〜h4) */
+  level?:    HeadingLevel
+  /** 表示サイズ（levelと独立して制御可能） */
+  size?:     HeadingSize
+  /** モダン系: tracking-tight を適用 */
+  tight?:    boolean
 }
 
 export interface HeadingProps extends BaseTextProps {
@@ -97,10 +107,34 @@ const TEXT_ALIGN: Record<TextAlign, string> = {
 }
 
 // ============================================================
+// Shorthand Components
+// ============================================================
+
+export function H1({ color = "default", align = "left", className = "", children }: Omit<HeadingProps, 'level' | 'size' | 'tight'>) {
+  return <Heading level={1} tight color={color} align={align} className={className}>{children}</Heading>
+}
+
+export function H2({ color = "default", align = "left", className = "", children }: Omit<HeadingProps, 'level' | 'size' | 'tight'>) {
+  return <Heading level={2} tight color={color} align={align} className={className}>{children}</Heading>
+}
+
+export function H3({ color = "default", align = "left", className = "", children }: Omit<HeadingProps, 'level' | 'size' | 'tight'>) {
+  return <Heading level={3} color={color} align={align} className={className}>{children}</Heading>
+}
+
+export function H4({ color = "default", align = "left", className = "", children }: Omit<HeadingProps, 'level' | 'size' | 'tight'>) {
+  return <Heading level={4} color={color} align={align} className={className}>{children}</Heading>
+}
+
+export function Small({ color = "subtle", align = "left", className = "", children }: CaptionProps) {
+  return <Caption color={color} align={align} className={className}>{children}</Caption>
+}
+
+// ============================================================
 // Heading
 // ============================================================
 
-export function Heading({
+function Heading({
   level     = 2,
   size,
   tight     = false,
@@ -114,15 +148,13 @@ export function Heading({
   return createElement(
     `h${level}`,
     {
-      className: [
+      className: cn(
         HEADING_SIZE[resolvedSize],
         tight ? HEADING_TIGHT : HEADING_NORMAL,
         TEXT_COLOR[color],
         TEXT_ALIGN[align],
-        className,
-      ]
-        .filter(Boolean)
-        .join(" "),
+        className
+      ),
     },
     children
   )

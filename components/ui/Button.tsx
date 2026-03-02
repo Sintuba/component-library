@@ -6,7 +6,7 @@ import { forwardRef } from "react"
 // Types
 // ============================================================
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger"
+export type ButtonVariant = "default" | "primary" | "secondary" | "ghost" | "danger"
 export type ButtonSize    = "sm" | "md" | "lg"
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -29,6 +29,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 // ============================================================
 
 const VARIANT_CLASS: Record<ButtonVariant, string> = {
+  default:
+    "bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 active:bg-gray-100",
   primary:
     "bg-gray-900 text-white border border-gray-900 hover:bg-gray-700 hover:border-gray-700 active:bg-gray-800",
   secondary:
